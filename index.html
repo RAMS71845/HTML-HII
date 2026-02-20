@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spring Summer Launch Countdown</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .app-wrapper {
+      height: 100%;
+      width: 100%;
+      font-family: 'Outfit', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Soft pastel summer gradient background */
+    .summer-gradient {
+      background: linear-gradient(
+        165deg,
+        #FFF5EB 0%,
+        #FFE8D6 15%,
+        #FFDAB9 30%,
+        #FFD4C4 50%,
+        #F8E1EF 70%,
+        #E8D5F0 85%,
+        #D4E5F7 100%
+      );
+      position: relative;
+    }
+    
+    /* Sunlight glow overlay */
+    .sunlight-overlay {
+      position: absolute;
+      top: -20%;
+      right: -30%;
+      width: 80%;
+      height: 60%;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255, 248, 220, 0.8) 0%,
+        rgba(255, 239, 186, 0.4) 30%,
+        transparent 70%
+      );
+      animation: sunPulse 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes sunPulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+    
+    /* Flowing fabric elements */
+    .fabric-wave {
+      position: absolute;
+      width: 200%;
+      height: 40%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 20%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.3) 80%,
+        transparent 100%
+      );
+      animation: fabricFlow 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    .fabric-wave-1 {
+      top: 10%;
+      left: -50%;
+      transform: rotate(-5deg);
+      animation-delay: 0s;
+    }
+    
+    .fabric-wave-2 {
+      bottom: 15%;
+      left: -50%;
+      transform: rotate(3deg);
+      animation-delay: -4s;
+      opacity: 0.6;
+    }
+    
+    .fabric-wave-3 {
+      top: 45%;
+      left: -50%;
+      transform: rotate(-2deg);
+      animation-delay: -8s;
+      opacity: 0.4;
+    }
+    
+    @keyframes fabricFlow {
+      0%, 100% { transform: translateX(-20%) rotate(-5deg); }
+      50% { transform: translateX(20%) rotate(5deg); }
+    }
+    
+    /* Palm shadow overlays */
+    .palm-shadow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.08;
+      pointer-events: none;
+      animation: palmSway 15s ease-in-out infinite;
+    }
+    
+    .palm-shadow svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    @keyframes palmSway {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      25% { transform: translateX(3%) rotate(1deg); }
+      75% { transform: translateX(-3%) rotate(-1deg); }
+    }
+    
+    /* Countdown number styles with responsive sizing */
+    .countdown-number {
+      font-size: clamp(60px, 18vw, 200px);
+      font-weight: 200;
+      letter-spacing: -0.05em;
+      line-height: 0.85;
+      transition: none;
+      display: inline-block;
+    }
+    
+    .countdown-separator {
+      display: inline-block;
+      line-height: 1;
+    }
+    
+    .timer-unit-label {
+      display: inline-block;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+    }
+    
+    /* Mobile responsive adjustments (max 480px) */
+    @media (max-width: 480px) {
+      .countdown-number {
+        font-size: clamp(50px, 15vw, 100px);
+      }
+      .countdown-separator {
+        font-size: 2.5rem;
+        margin: 0 4px;
+      }
+      .timer-unit-label {
+        font-size: 10px;
+        margin-top: 8px;
+      }
+      .timer-container {
+        gap: 8px;
+      }
+      .main-title {
+        font-size: clamp(14px, 4vw, 24px);
+      }
+      .launch-date {
+        font-size: clamp(20px, 5vw, 40px);
+      }
+      .brand-name {
+        font-size: clamp(10px, 2.5vw, 14px);
+      }
+    }
+    
+    /* Tablet responsive adjustments (481px - 1024px) */
+    @media (min-width: 481px) and (max-width: 1024px) {
+      .countdown-number {
+        font-size: clamp(70px, 16vw, 140px);
+      }
+      .countdown-separator {
+        font-size: 3.5rem;
+        margin: 0 8px;
+      }
+      .timer-unit-label {
+        font-size: 12px;
+        margin-top: 12px;
+      }
+      .timer-container {
+        gap: 16px;
+      }
+      .main-title {
+        font-size: clamp(16px, 3.5vw, 28px);
+      }
+      .launch-date {
+        font-size: clamp(24px, 5.5vw, 48px);
+      }
+      .brand-name {
+        font-size: clamp(11px, 2.5vw, 15px);
+      }
+    }
+    
+    /* Desktop and large screen adjustments (1025px+) */
+    @media (min-width: 1025px) {
+      .countdown-number {
+        font-size: clamp(100px, 20vw, 200px);
+      }
+      .countdown-separator {
+        font-size: 4.5rem;
+        margin: 0 12px;
+      }
+      .timer-unit-label {
+        font-size: 14px;
+        margin-top: 16px;
+      }
+      .timer-container {
+        gap: 24px;
+      }
+      .main-title {
+        font-size: clamp(18px, 3.5vw, 32px);
+      }
+      .launch-date {
+        font-size: clamp(28px, 6vw, 56px);
+      }
+      .brand-name {
+        font-size: clamp(12px, 2.5vw, 16px);
+      }
+    }
+    
+    /* Title styles */
+    .main-title {
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: titleFade 1s ease-out 0.3s forwards;
+    }
+    
+    @keyframes titleFade {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Launch date text */
+    .launch-date {
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      margin-top: 20px;
+    }
+    
+    /* Decorative line */
+    .deco-line {
+      width: 60px;
+      height: 1px;
+      background: currentColor;
+      margin: 30px auto;
+      transform: scaleX(0);
+      animation: lineExpand 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    }
+    
+    @keyframes lineExpand {
+      to { transform: scaleX(1); }
+    }
+    
+    /* Brand name */
+    .brand-name {
+      font-weight: 400;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+    
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    .particle-1 { top: 20%; left: 15%; animation: float 8s ease-in-out infinite; }
+    .particle-2 { top: 35%; right: 20%; animation: float 10s ease-in-out infinite reverse; }
+    .particle-3 { bottom: 30%; left: 25%; animation: float 7s ease-in-out infinite; animation-delay: -3s; }
+    .particle-4 { top: 60%; right: 30%; animation: float 9s ease-in-out infinite reverse; animation-delay: -5s; }
+    .particle-5 { bottom: 20%; right: 15%; animation: float 11s ease-in-out infinite; animation-delay: -2s; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+      50% { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
+    }
+    
+    /* Warm glow effect */
+    .warm-glow {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(
+        to top,
+        rgba(255, 200, 150, 0.2) 0%,
+        transparent 100%
+      );
+      pointer-events: none;
+      animation: glowPulse 6s ease-in-out infinite;
+    }
+    
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="app-wrapper summer-gradient"><!-- Sunlight overlay -->
+   <div class="sunlight-overlay"></div><!-- Flowing fabric elements -->
+   <div class="fabric-wave fabric-wave-1"></div>
+   <div class="fabric-wave fabric-wave-2"></div>
+   <div class="fabric-wave fabric-wave-3"></div><!-- Palm shadows -->
+   <div class="palm-shadow">
+    <svg viewbox="0 0 1080 1920" preserveaspectratio="xMidYMid slice"><defs>
+      <lineargradient id="palmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+       <stop offset="0%" style="stop-color:#2d3436;stop-opacity:1" />
+       <stop offset="100%" style="stop-color:#2d3436;stop-opacity:0.5" />
+      </lineargradient>
+     </defs> <path d="M-100,200 Q200,100 400,300 Q500,400 300,500 Q100,600 -100,400 Z" fill="url(#palmGrad)" /> <path d="M1180,100 Q900,200 800,400 Q700,500 900,600 Q1100,700 1180,500 Z" fill="url(#palmGrad)" /> <path d="M-50,1400 Q150,1300 350,1450 Q450,1550 250,1650 Q50,1750 -50,1550 Z" fill="url(#palmGrad)" /> <path d="M1130,1500 Q950,1400 850,1550 Q750,1650 950,1750 Q1100,1850 1130,1700 Z" fill="url(#palmGrad)" />
+    </svg>
+   </div><!-- Floating particles -->
+   <div class="particle particle-1"></div>
+   <div class="particle particle-2"></div>
+   <div class="particle particle-3"></div>
+   <div class="particle particle-4"></div>
+   <div class="particle particle-5"></div><!-- Warm glow -->
+   <div class="warm-glow"></div><!-- Main content container -->
+   <div class="h-full w-full flex flex-col items-center justify-center relative z-10 px-4 sm:px-6 md:px-8"><!-- Top title -->
+    <div class="absolute top-[5%] sm:top-[8%] left-0 right-0 text-center px-4 sm:px-8">
+     <p id="mainTitle" class="main-title" style="color: #4a4a4a;">Spring–Summer Launch</p>
+    </div><!-- Countdown timer display -->
+    <div class="flex flex-col items-center justify-center relative z-10 w-full max-w-6xl">
+     <div class="timer-container flex flex-wrap justify-center items-center w-full"><!-- Days -->
+      <div class="flex flex-col items-center">
+       <div id="daysValue" class="countdown-number" style="color: #2d3436;">
+        00
+       </div>
+       <p class="timer-unit-label tracking-widest uppercase" style="color: #4a4a4a; font-family: 'Outfit', sans-serif;">Days</p>
+      </div><!-- Separator --> <span class="countdown-separator opacity-30" style="color: #4a4a4a;">:</span> <!-- Hours -->
+      <div class="flex flex-col items-center">
+       <div id="hoursValue" class="countdown-number" style="color: #2d3436;">
+        00
+       </div>
+       <p class="timer-unit-label tracking-widest uppercase" style="color: #4a4a4a; font-family: 'Outfit', sans-serif;">Hours</p>
+      </div><!-- Separator --> <span class="countdown-separator opacity-30" style="color: #4a4a4a;">:</span> <!-- Minutes -->
+      <div class="flex flex-col items-center">
+       <div id="minutesValue" class="countdown-number" style="color: #2d3436;">
+        00
+       </div>
+       <p class="timer-unit-label tracking-widest uppercase" style="color: #4a4a4a; font-family: 'Outfit', sans-serif;">Minutes</p>
+      </div><!-- Separator --> <span class="countdown-separator opacity-30" style="color: #4a4a4a;">:</span> <!-- Seconds -->
+      <div class="flex flex-col items-center">
+       <div id="secondsValue" class="countdown-number" style="color: #2d3436;">
+        00
+       </div>
+       <p class="timer-unit-label tracking-widest uppercase" style="color: #4a4a4a; font-family: 'Outfit', sans-serif;">Seconds</p>
+      </div>
+     </div>
+    </div><!-- Bottom section -->
+    <div class="absolute bottom-4 sm:bottom-8 md:bottom-12 left-0 right-0 text-center px-4 sm:px-8">
+     <div class="deco-line mx-auto"></div>
+     <p id="launchDate" class="launch-date" style="color: #2d3436;">February 22, 2026</p>
+     <div class="deco-line mx-auto"></div>
+     <p id="brandName" class="brand-name" style="color: #4a4a4a;">H&M</p>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_title: 'Spring–Summer Launch',
+      launch_date: 'February 22, 2025',
+      brand_name: 'Your Brand',
+      text_color: '#2d3436'
+    };
+
+    function calculateTimeRemaining() {
+      // Set target date to February 22, 2026 at 00:00:00
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      let targetDate = new Date(currentYear, 1, 22, 0, 0, 0).getTime();
+      
+      // If February 22 has passed this year, target next year
+      if (now.getTime() > targetDate) {
+        targetDate = new Date(currentYear + 1, 1, 22, 0, 0, 0).getTime();
+      }
+      
+      const timeRemaining = targetDate - now.getTime();
+
+      if (timeRemaining <= 0) {
+        return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
+      }
+
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      return { days, hours, minutes, seconds, expired: false };
+    }
+
+    function formatNumber(num) {
+      return String(num).padStart(2, '0');
+    }
+
+    function updateTimer() {
+      const time = calculateTimeRemaining();
+      
+      document.getElementById('daysValue').textContent = formatNumber(time.days);
+      document.getElementById('hoursValue').textContent = formatNumber(time.hours);
+      document.getElementById('minutesValue').textContent = formatNumber(time.minutes);
+      document.getElementById('secondsValue').textContent = formatNumber(time.seconds);
+
+      if (time.expired) {
+        document.getElementById('mainTitle').textContent = 'Launched!';
+      }
+    }
+
+    async function onConfigChange(config) {
+      const mainTitle = document.getElementById('mainTitle');
+      const launchDate = document.getElementById('launchDate');
+      const brandName = document.getElementById('brandName');
+      
+      if (mainTitle) mainTitle.textContent = config.main_title || defaultConfig.main_title;
+      if (launchDate) launchDate.textContent = config.launch_date || defaultConfig.launch_date;
+      if (brandName) brandName.textContent = config.brand_name || defaultConfig.brand_name;
+      
+      // Apply text color
+      const textColor = config.text_color || defaultConfig.text_color;
+      document.querySelectorAll('.countdown-number, .main-title, .launch-date, .deco-line, .countdown-separator, .timer-unit-label').forEach(el => {
+        el.style.color = textColor;
+      });
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || 'Outfit',
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['main_title', config.main_title || defaultConfig.main_title],
+        ['launch_date', config.launch_date || defaultConfig.launch_date],
+        ['brand_name', config.brand_name || defaultConfig.brand_name]
+      ]);
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Update timer immediately and then every second
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d0f4ec21634b2cb',t:'MTc3MTYwNDE3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
